@@ -2,12 +2,13 @@ package cli
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/AlecAivazis/survey/v2"
 )
 
 func (s *SurveyController) Run() error {
-	fmt.Println("🚀 Welcome to Live Semantic Interactive CLI!")
+	fmt.Printf("🚀 Welcome to %s Interactive CLI!\n", os.Getenv("APP_NAME"))
 
 	for {
 		var action string

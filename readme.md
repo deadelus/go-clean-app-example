@@ -80,7 +80,7 @@ curl -X POST http://localhost:8080/api/v1/tasks \
 
 ## 🏗️ **Architecture**
 
-LiveSemantic follows Clean Architecture principles with transport-agnostic design:
+This app follows Clean Architecture principles with transport-agnostic design:
 
 ```
 ┌─────────────────────┐
@@ -332,7 +332,7 @@ spec:
 ./go-clean-app -i
 
 # Interactive flow example:
-# 🚀 Welcome to Live Semantic Interactive CLI!
+# 🚀 Welcome to  Interactive CLI!
 # ? What would you like to do?
 #   ▶ 📝 Create Task
 #     📋 List Tasks

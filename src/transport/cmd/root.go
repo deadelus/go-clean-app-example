@@ -20,11 +20,11 @@ var (
 // rootCmd represents the base command
 var rootCmd = &cobra.Command{
 	Use:   "go-clean-app-project",
-	Short: "🚀 Live Semantic CLI Application",
-	Long: `Live Semantic - A modern CLI application with clean architecture.
+	Short: fmt.Sprintf("%s CLI Application", os.Getenv("APP_NAME")),
+	Long: fmt.Sprintf(`%s - A modern CLI application with clean architecture.
 
 Built with ❤️  using Go, Cobra, and Clean Architecture principles.
-Supports CLI, Web API, and WebSocket modes.`,
+Supports CLI, Web API, and WebSocket modes.`, os.Getenv("APP_NAME")),
 	Version: "1.0.0",
 }
 

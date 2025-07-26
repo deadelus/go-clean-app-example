@@ -1,4 +1,4 @@
-// Package cli provides the CLI interface for the Live Semantic application.
+// Package cli provides the CLI interface for the application.
 package cli
 
 import (
