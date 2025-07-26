@@ -166,7 +166,7 @@ golangci-lint run
 ### Environment Setup
 Create a `.env` file in the project root:
 ```env
-APP_NAME="live semantic"
+APP_NAME="go-clean-app-example"
 APP_VERSION="0.1.0"
 APP_ENV="development"
 APP_DEBUG="true"
