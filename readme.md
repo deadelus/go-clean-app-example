@@ -5,8 +5,6 @@
 [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)](https://github.com/deadelus/go-clean-app)
 [![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)](#)
 
-> **Coverage : 100%**
-
 **GitHub Repo : [https://github.com/deadelus/go-clean-app](https://github.com/deadelus/go-clean-app)**
 
 **Clean Architecture Go application template with multi-transport support (CLI, API, WebSocket)**
