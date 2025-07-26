@@ -2,8 +2,8 @@
 package cli
 
 import (
-	"live-semantic/src/domain/uc"
-	"live-semantic/src/transport"
+	"go-clean-app-project/src/domain/uc"
+	"go-clean-app-project/src/transport"
 
 	"github.com/deadelus/go-clean-app/src/logger"
 )

@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"live-semantic/src/domain/uc"
+	"go-clean-app-project/src/domain/uc"
 	"os"
 
 	"github.com/deadelus/go-clean-app/src/logger"
@@ -19,7 +19,7 @@ var (
 
 // rootCmd represents the base command
 var rootCmd = &cobra.Command{
-	Use:   "live-semantic",
+	Use:   "go-clean-app-project",
 	Short: "🚀 Live Semantic CLI Application",
 	Long: `Live Semantic - A modern CLI application with clean architecture.
 
@@ -44,7 +44,7 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	// Global flags
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.live-semantic.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.go-clean-app-project.yaml)")
 	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "verbose output")
 
 	// Bind flags to viper
@@ -63,7 +63,7 @@ func initConfig() {
 		cobra.CheckErr(err)
 		viper.AddConfigPath(home)
 		viper.SetConfigType("yaml")
-		viper.SetConfigName(".live-semantic")
+		viper.SetConfigName(".go-clean-app-project")
 	}
 
 	viper.AutomaticEnv()

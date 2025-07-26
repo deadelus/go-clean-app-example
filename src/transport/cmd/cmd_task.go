@@ -3,8 +3,8 @@ package cmd
 import (
 	"context"
 	"fmt"
-	"live-semantic/src/domain/dto"
-	"live-semantic/src/transport"
+	"go-clean-app-project/src/domain/dto"
+	"go-clean-app-project/src/transport"
 
 	"github.com/spf13/cobra"
 )
@@ -45,7 +45,7 @@ var createCmd = &cobra.Command{
 		// Afficher le résultat
 		if response.Success {
 			fmt.Printf("✅ task created successfully!\n")
-			fmt.Printf("   ID: %s\n", response.Data.ID)
+			fmt.Printf("   ID: %d\n", response.Data.ID)
 			fmt.Printf("   Title: %s\n", response.Data.Title)
 			fmt.Printf("   Description: %s\n", response.Data.Description)
 			fmt.Printf("   Created At: %s\n", response.Data.CreatedAt.Format("2006-01-02 15:04:05"))

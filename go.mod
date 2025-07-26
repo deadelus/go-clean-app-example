@@ -1,4 +1,4 @@
-module live-semantic
+module go-clean-app-project
 
 go 1.24.5
 

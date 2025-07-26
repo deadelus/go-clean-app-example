@@ -2,11 +2,14 @@ package main
 
 import (
 	"fmt"
-	"live-semantic/src/domain/uc"
-	"live-semantic/src/transport/api"
-	"live-semantic/src/transport/cli"
-	"live-semantic/src/transport/cmd"
-	"live-semantic/src/transport/websocket"
+	"go-clean-app-project/src/domain/uc"
+	"go-clean-app-project/src/implementation/storage/dynamo"
+	"go-clean-app-project/src/implementation/storage/mysql"
+	"go-clean-app-project/src/infrastructure/storage"
+	"go-clean-app-project/src/transport/api"
+	"go-clean-app-project/src/transport/cli"
+	"go-clean-app-project/src/transport/cmd"
+	"go-clean-app-project/src/transport/websocket"
 	"os"
 
 	"github.com/deadelus/go-clean-app/src/application"
@@ -57,7 +60,19 @@ func main() {
 		},
 	)
 
-	useCases, err := uc.NewUseCase(engine.Logger())
+	// Initialize storage based on the environment
+	var storage storage.Storage
+	storage, err = mysql.NewMySQLStorage(&mysql.DB{}, engine.Logger())
+	if err != nil {
+		engine.Logger().Error("Failed to create mysql storage fallback dynamo", err)
+		storage, err = dynamo.NewDynamoStorage()
+		if err != nil {
+			engine.Logger().Error("Failed to create DynamoDB storage", err)
+			return
+		}
+	}
+
+	useCases, err := uc.NewUseCase(engine.Logger(), storage)
 	if err != nil {
 		engine.Logger().Error("Failed to create use cases", err)
 		return

@@ -2,8 +2,10 @@ package uc_test
 
 import (
 	"context"
-	"live-semantic/src/domain/dto"
-	"live-semantic/src/domain/uc"
+	"go-clean-app-project/src/domain/dto"
+	"go-clean-app-project/src/domain/models"
+	"go-clean-app-project/src/domain/uc"
+	"go-clean-app-project/src/infrastructure/storage/mock"
 	"testing"
 	"time"
 
@@ -23,8 +25,21 @@ func TestUseCase_CreateTask(t *testing.T) {
 	// Expect the Info method to be called
 	mockLogger.EXPECT().Info(gomock.Any(), gomock.Any()).Return()
 
+	// Create a new mock storage
+	mockStorage := mock.NewMockStorage(ctrl)
+
+	currentTime := time.Now()
+
+	// Expect the SaveTask method to be called with any task
+	mockStorage.EXPECT().SaveTask(gomock.Any()).DoAndReturn(func(task *models.Task) error {
+		// Simulate saving the task by assigning an ID
+		task.ID = uint64(1)          // Assign a mock ID
+		task.CreatedAt = currentTime // Set CreatedAt to the current time
+		return nil
+	})
+
 	// Create a new use case with the mock logger
-	useCase, err := uc.NewUseCase(mockLogger)
+	useCase, err := uc.NewUseCase(mockLogger, mockStorage)
 	assert.NoError(t, err)
 
 	// Create a new task request
@@ -40,10 +55,10 @@ func TestUseCase_CreateTask(t *testing.T) {
 	// Assert that the result is successful
 	assert.True(t, result.Success)
 	assert.NotNil(t, result.Data)
-	assert.Equal(t, "12345", result.Data.ID)
-	assert.Equal(t, "Task 1", result.Data.Title)
-	assert.Equal(t, "Description 1", result.Data.Description)
-	assert.WithinDuration(t, time.Now(), result.Data.CreatedAt, time.Second)
+	assert.Equal(t, uint64(1), result.Data.ID)
+	assert.Equal(t, "Test Task", result.Data.Title)
+	assert.Equal(t, "This is a test task", result.Data.Description)
+	assert.Equal(t, currentTime, result.Data.CreatedAt)
 }
 
 func TestUseCase_CreateTask_ContextCancelled(t *testing.T) {
@@ -54,8 +69,11 @@ func TestUseCase_CreateTask_ContextCancelled(t *testing.T) {
 	// Create a new mock logger
 	mockLogger := logger.NewMockLogger(ctrl)
 
+	// Create a new mock storage
+	mockStorage := mock.NewMockStorage(ctrl)
+
 	// Create a new use case with the mock logger
-	useCase, err := uc.NewUseCase(mockLogger)
+	useCase, err := uc.NewUseCase(mockLogger, mockStorage)
 	assert.NoError(t, err)
 
 	// Create a new task request

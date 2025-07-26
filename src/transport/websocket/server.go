@@ -2,7 +2,7 @@ package websocket
 
 import (
 	"fmt"
-	"live-semantic/src/domain/uc"
+	"go-clean-app-project/src/domain/uc"
 	"net/http"
 
 	"github.com/deadelus/go-clean-app/src/logger"
@@ -60,7 +60,7 @@ func (s *Server) setupRoutes() {
 func (s *Server) healthCheck(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"status":  "ok",
-		"service": "live-semantic-ws",
+		"service": "go-clean-app-project-ws",
 		"version": "1.0.0",
 	})
 }

@@ -3,8 +3,8 @@ package websocket
 import (
 	"context"
 	"encoding/json"
-	"live-semantic/src/domain/dto"
-	"live-semantic/src/transport"
+	"go-clean-app-project/src/domain/dto"
+	"go-clean-app-project/src/transport"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"

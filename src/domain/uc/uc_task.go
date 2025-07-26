@@ -2,11 +2,11 @@ package uc
 
 import (
 	"context"
-	"live-semantic/src/domain/dto"
-	"time"
+	"go-clean-app-project/src/domain/dto"
+	"go-clean-app-project/src/domain/models"
 )
 
-func (uc *UseCase) CreateTask(ctx context.Context, er dto.TaskRequest) (dto.Result[dto.TaskResponse], error) {
+func (uc *UseCase) CreateTask(ctx context.Context, taskRequest dto.TaskRequest) (dto.Result[dto.TaskResponse], error) {
 	// Check if the context is done before proceeding
 	select {
 	case <-ctx.Done():
@@ -20,17 +20,23 @@ func (uc *UseCase) CreateTask(ctx context.Context, er dto.TaskRequest) (dto.Resu
 		in a database and return the created user as a response.
 	*/
 
+	task := &models.Task{
+		Title:       taskRequest.Title,
+		Description: taskRequest.Description,
+	}
+	uc.storage.SaveTask(task)
+
 	// Log the request for debugging purposes
 	uc.logger.Info("Processing Task use case", map[string]interface{}{
-		"request": er,
+		"request": taskRequest,
 	})
 
-	// For demonstration, let's return a dummy response.
 	response := dto.TaskResponse{
-		ID:          "12345",
-		Title:       "Task 1",
-		Description: "Description 1",
-		CreatedAt:   time.Now(),
+		ID:          task.ID,
+		Title:       task.Title,
+		Description: task.Description,
+		CreatedAt:   task.CreatedAt,
 	}
+
 	return dto.Success(response), nil
 }

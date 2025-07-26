@@ -1,8 +1,8 @@
 package api
 
 import (
-	"live-semantic/src/domain/dto"
-	"live-semantic/src/transport"
+	"go-clean-app-project/src/domain/dto"
+	"go-clean-app-project/src/transport"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

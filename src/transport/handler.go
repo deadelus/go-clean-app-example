@@ -1,7 +1,7 @@
 package transport
 
 import (
-	"live-semantic/src/domain/uc"
+	"go-clean-app-project/src/domain/uc"
 
 	"github.com/deadelus/go-clean-app/src/logger"
 )

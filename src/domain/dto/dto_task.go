@@ -10,7 +10,7 @@ type TaskRequest struct {
 
 // TaskResponse DTO pour la réponse utilisateur
 type TaskResponse struct {
-	ID          string    `json:"id"`
+	ID          uint64    `json:"id"`
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
 	CreatedAt   time.Time `json:"created_at"`

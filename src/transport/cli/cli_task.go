@@ -3,8 +3,8 @@ package cli
 import (
 	"context"
 	"fmt"
-	"live-semantic/src/domain/dto"
-	"live-semantic/src/transport"
+	"go-clean-app-project/src/domain/dto"
+	"go-clean-app-project/src/transport"
 
 	"github.com/AlecAivazis/survey/v2"
 )
@@ -62,7 +62,7 @@ func (s *SurveyController) createTaskFlow() error {
 
 	if response.Success {
 		fmt.Printf("\n✅ Task created successfully!\n")
-		fmt.Printf("   🆔 ID: %s\n", response.Data.ID)
+		fmt.Printf("   🆔 ID: %d\n", response.Data.ID)
 		fmt.Printf("   📝 Title: %s\n", response.Data.Title)
 		fmt.Printf("   📝 Description: %s\n", response.Data.Description)
 		fmt.Printf("   📅 Created: %s\n\n", response.Data.CreatedAt.Format("2006-01-02 15:04:05"))

@@ -1,32 +1,34 @@
-# 🎥 LiveSemantic
+# 🧹 go-clean-app
 
 [![Go Version](https://img.shields.io/badge/Go-1.24+-00ADD8?logo=go)](https://golang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)](https://github.com/your-org/livesemantic)
+[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)](https://github.com/deadelus/go-clean-app)
+[![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)](#)
 
-**Real-time semantic video analysis with natural language AI filters**
+> **Coverage : 100%**
 
-LiveSemantic analyzes video streams and files using AI-powered semantic understanding. Define any filter in natural language ("person walking", "red car entering", "crowd gathering") and get instant matches with sub-50ms latency.
+**GitHub Repo : [https://github.com/deadelus/go-clean-app](https://github.com/deadelus/go-clean-app)**
+
+**Clean Architecture Go application template with multi-transport support (CLI, API, WebSocket)**
+
+go-clean-app est un squelette d’application Go orienté Clean Architecture, prêt pour la production, avec gestion CLI, API REST et WebSocket.
 
 ## 🚀 **Quick Start**
 
 ### Prerequisites
 - Go 1.24.5+
-- Python 3.9+ (for model export)
-- OpenCV 4.x
-- ONNX Runtime
 
 ### Installation
 ```bash
 # Clone repository
-git clone https://github.com/your-org/livesemantic.git
-cd livesemantic
+git clone https://github.com/your-org/go-clean-app-project.git
+cd go-clean-app-project
 
 # Install Go dependencies
 go mod tidy
 
 # Build the application
-go build -o livesemantic src/main.go
+go build -o go-clean-app src/main.go
 ```
 
 ### Basic Usage
@@ -34,47 +36,31 @@ go build -o livesemantic src/main.go
 #### Interactive CLI (Default)
 ```bash
 # Interactive mode with Survey prompts
-./livesemantic
+./go-clean-app
 
 # Explicit interactive mode
-./livesemantic interactive
-./livesemantic -i
+./go-clean-app --interactive
 ```
 
 #### Classic CLI Commands
 ```bash
 # Create a new task
-./livesemantic create-task "My First Task" "A description of the task"
+./go-clean-app task create "My First Task" "A description of the task"
 
 # Show help
-./livesemantic help
+./go-clean-app --help
 
 # Show version
-./livesemantic version
-```
-
-#### Future Video Analysis Features
-```bash
-# Real-time webcam surveillance (planned)
-./livesemantic realtime \
-  --source="cam0" \
-  --filter="person walking,vehicle entering" \
-  --threshold=0.7
-
-# Batch video file analysis (planned)
-./livesemantic batch \
-  --file="video.mp4" \
-  --filters="celebration,applause,dancing" \
-  --export-clips
+./go-clean-app version
 ```
 
 #### Web API Mode
 ```bash
 # Start web server on port 8080
-./livesemantic web
+./go-clean-app --web
 
 # Or specify custom port
-./livesemantic web 3000
+./go-clean-app --web --port 3000
 
 # Test API endpoint
 curl -X POST http://localhost:8080/api/v1/tasks \
@@ -85,10 +71,10 @@ curl -X POST http://localhost:8080/api/v1/tasks \
 #### WebSocket Mode
 ```bash
 # Start WebSocket server on port 8081
-./livesemantic ws
+./go-clean-app --websocket
 
 # Or specify custom port
-./livesemantic ws 9000
+./go-clean-app --websocket --port 9000
 
 # Connect to ws://localhost:8081/ws
 # Send message: {"type":"create_task","data":{"title":"My WebSocket Task","description":"Task via WS"}}
@@ -129,7 +115,7 @@ LiveSemantic follows Clean Architecture principles with transport-agnostic desig
 ## 📖 **Project Structure**
 
 ```
-live-semantic/
+go-clean-app-project/
 ├── .env                          # Environment variables
 ├── .gitignore                    # Git ignore file
 ├── go.mod                        # Go module dependencies
@@ -148,8 +134,6 @@ live-semantic/
 │       ├── cli/                  # Interactive CLI (Survey)
 │       ├── cmd/                  # Classic CLI (Cobra)
 │       └── websocket/            # WebSocket transport (Gorilla)
-├── internal/                     # Internal application code/scripts
-│   └── scripts/
 └── docs/                         # Project documentation
 ```
 
@@ -161,13 +145,13 @@ live-semantic/
 go mod tidy
 
 # Development build
-go build -o livesemantic src/main.go
+go build -o go-clean-app src/main.go
 
 # Production build with optimizations
-go build -ldflags="-s -w" -o livesemantic src/main.go
+go build -ldflags="-s -w" -o go-clean-app src/main.go
 
 # Cross-compilation for Linux
-GOOS=linux GOARCH=amd64 go build -o livesemantic-linux src/main.go
+GOOS=linux GOARCH=amd64 go build -o go-clean-app-linux src/main.go
 
 # Run tests
 go test ./...
@@ -262,16 +246,16 @@ func (s *Server) createTask(c *gin.Context) {
 ### Docker
 ```bash
 # Build image
-docker build -t livesemantic:latest .
+docker build -t go-clean-app:latest .
 
 # Run CLI mode
-docker run --rm livesemantic:latest create-task "Docker Task" "A task from Docker"
+docker run --rm go-clean-app:latest create-task "Docker Task" "A task from Docker"
 
 # Run web server
-docker run -d -p 8080:8080 livesemantic:latest web
+docker run -d -p 8080:8080 go-clean-app:latest web
 
 # Run WebSocket server
-docker run -d -p 8081:8081 livesemantic:latest ws
+docker run -d -p 8081:8081 go-clean-app:latest ws
 ```
 
 ### Docker Compose
@@ -281,7 +265,7 @@ version: '3.8'
 services:
   api:
     build: .
-    command: ["./livesemantic", "web", "8080"]
+    command: ["./go-clean-app", "web", "8080"]
     ports:
       - "8080:8080"
     environment:
@@ -289,7 +273,7 @@ services:
   
   websocket:
     build: .
-    command: ["./livesemantic", "ws", "8081"]
+    command: ["./go-clean-app", "ws", "8081"]
     ports:
       - "8081:8081"
     environment:
@@ -302,21 +286,21 @@ services:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: livesemantic-api
+  name: go-clean-app-api
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: livesemantic-api
+      app: go-clean-app-api
   template:
     metadata:
       labels:
-        app: livesemantic-api
+        app: go-clean-app-api
     spec:
       containers:
-      - name: livesemantic
-        image: livesemantic:latest
-        command: ["./livesemantic", "web", "8080"]
+      - name: go-clean-app
+        image: go-clean-app:latest
+        command: ["./go-clean-app", "web", "8080"]
         ports:
         - containerPort: 8080
         env:
@@ -326,10 +310,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: livesemantic-service
+  name: go-clean-app-service
 spec:
   selector:
-    app: livesemantic-api
+    app: go-clean-app-api
   ports:
   - port: 80
     targetPort: 8080
@@ -343,11 +327,11 @@ spec:
 #### Interactive CLI Testing
 ```bash
 # Test interactive mode (default)
-./livesemantic
+./go-clean-app
 
 # Test explicit interactive mode  
-./livesemantic interactive
-./livesemantic -i
+./go-clean-app interactive
+./go-clean-app -i
 
 # Interactive flow example:
 # 🚀 Welcome to Live Semantic Interactive CLI!
@@ -366,20 +350,20 @@ spec:
 #### Classic CLI Testing
 ```bash
 # Test task creation
-./livesemantic create-task "My CLI Task" "A new task from CLI"
+./go-clean-app create-task "My CLI Task" "A new task from CLI"
 
 # Test with verbose output
-./livesemantic create-task "My Verbose Task" "A verbose task" --verbose
+./go-clean-app create-task "My Verbose Task" "A verbose task" --verbose
 
 # Test help system
-./livesemantic help
-./livesemantic create-task --help
+./go-clean-app help
+./go-clean-app create-task --help
 ```
 
 #### API Testing
 ```bash
 # Start server
-./livesemantic web &
+./go-clean-app web &
 
 # Test health endpoint
 curl http://localhost:8080/health
@@ -390,13 +374,13 @@ curl -X POST http://localhost:8080/api/v1/tasks \
   -d '{"title":"My API Test Task","description":"A task for API testing"}'
 
 # Stop server
-pkill livesemantic
+pkill go-clean-app
 ```
 
 #### WebSocket Testing
 ```bash
 # Start WebSocket server
-./livesemantic ws &
+./go-clean-app ws &
 
 # Test with wscat (install: npm install -g wscat)
 wscat -c ws://localhost:8081/ws
@@ -425,7 +409,7 @@ The application uses structured logging with Zap:
 
 ```bash
 # Enable debug logging
-APP_DEBUG=true ./livesemantic create-task "My Debug Task" "A task for debugging"
+APP_DEBUG=true ./go-clean-app create-task "My Debug Task" "A task for debugging"
 
 # Different log levels based on APP_ENV
 APP_ENV=development  # Debug logging with caller info
@@ -445,7 +429,7 @@ curl http://localhost:8081/health
 The application handles SIGTERM and SIGINT signals gracefully:
 ```bash
 # Start application
-./livesemantic web &
+./go-clean-app web &
 
 # Graceful shutdown
 kill -TERM $!

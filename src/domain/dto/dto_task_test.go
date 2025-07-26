@@ -1,7 +1,7 @@
 package dto_test
 
 import (
-	"live-semantic/src/domain/dto"
+	"go-clean-app-project/src/domain/dto"
 	"testing"
 	"time"
 
@@ -29,7 +29,7 @@ func TestTaskRequest(t *testing.T) {
 func TestTaskResponse(t *testing.T) {
 	t.Run("should create a task response", func(t *testing.T) {
 		// Given
-		id := "123"
+		id := uint64(12345)
 		title := "Test Task"
 		description := "This is a test task"
 		createdAt := time.Now()
