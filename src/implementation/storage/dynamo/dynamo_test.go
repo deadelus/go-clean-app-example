@@ -1,7 +1,7 @@
 package dynamo
 
 import (
-	"go-clean-app-project/src/domain/models"
+	"go-clean-app-example/src/domain/models"
 	"testing"
 )
 

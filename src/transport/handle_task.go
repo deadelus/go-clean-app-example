@@ -1,6 +1,6 @@
 package transport
 
-import "go-clean-app-project/src/domain/dto"
+import "go-clean-app-example/src/domain/dto"
 
 // HandleTask handles a Task request
 // It takes a TransportRequest with dto.TaskRequest data and returns a TransportResponse with dto

@@ -1,10 +1,10 @@
 package uc
 
 import (
-	"go-clean-app-project/src/infrastructure/storage/mock"
+	"go-clean-app-example/src/infrastructure/storage/mock"
 	"testing"
 
-	"github.com/deadelus/go-clean-app/src/logger"
+	"github.com/deadelus/go-clean-app/v2/logger"
 	"github.com/golang/mock/gomock"
 )
 

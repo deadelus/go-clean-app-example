@@ -1,7 +1,7 @@
 package dto_test
 
 import (
-	"go-clean-app-project/src/domain/dto"
+	"go-clean-app-example/src/domain/dto"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

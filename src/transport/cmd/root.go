@@ -2,10 +2,10 @@ package cmd
 
 import (
 	"fmt"
-	"go-clean-app-project/src/domain/uc"
+	"go-clean-app-example/src/domain/uc"
 	"os"
 
-	"github.com/deadelus/go-clean-app/src/logger"
+	"github.com/deadelus/go-clean-app/v2/logger"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -19,7 +19,7 @@ var (
 
 // rootCmd represents the base command
 var rootCmd = &cobra.Command{
-	Use:   "go-clean-app-project",
+	Use:   "go-clean-app-example",
 	Short: fmt.Sprintf("%s CLI Application", os.Getenv("APP_NAME")),
 	Long: fmt.Sprintf(`%s - A modern CLI application with clean architecture.
 
@@ -44,7 +44,7 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	// Global flags
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.go-clean-app-project.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.go-clean-app-example.yaml)")
 	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "verbose output")
 
 	// Bind flags to viper
@@ -63,7 +63,7 @@ func initConfig() {
 		cobra.CheckErr(err)
 		viper.AddConfigPath(home)
 		viper.SetConfigType("yaml")
-		viper.SetConfigName(".go-clean-app-project")
+		viper.SetConfigName(".go-clean-app-example")
 	}
 
 	viper.AutomaticEnv()

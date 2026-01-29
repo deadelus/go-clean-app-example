@@ -2,14 +2,14 @@ package uc_test
 
 import (
 	"context"
-	"go-clean-app-project/src/domain/dto"
-	"go-clean-app-project/src/domain/models"
-	"go-clean-app-project/src/domain/uc"
-	"go-clean-app-project/src/infrastructure/storage/mock"
+	"go-clean-app-example/src/domain/dto"
+	"go-clean-app-example/src/domain/models"
+	"go-clean-app-example/src/domain/uc"
+	"go-clean-app-example/src/infrastructure/storage/mock"
 	"testing"
 	"time"
 
-	"github.com/deadelus/go-clean-app/src/logger"
+	"github.com/deadelus/go-clean-app/v2/logger"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 )

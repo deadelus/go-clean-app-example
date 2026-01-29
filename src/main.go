@@ -2,17 +2,18 @@ package main
 
 import (
 	"fmt"
-	"go-clean-app-project/src/domain/uc"
-	"go-clean-app-project/src/implementation/storage/dynamo"
-	"go-clean-app-project/src/implementation/storage/mysql"
-	"go-clean-app-project/src/infrastructure/storage"
-	"go-clean-app-project/src/transport/api"
-	"go-clean-app-project/src/transport/cli"
-	"go-clean-app-project/src/transport/cmd"
-	"go-clean-app-project/src/transport/websocket"
+	"go-clean-app-example/src/domain/uc"
+	"go-clean-app-example/src/implementation/storage/dynamo"
+	"go-clean-app-example/src/implementation/storage/mysql"
+	"go-clean-app-example/src/infrastructure/storage"
+	"go-clean-app-example/src/transport/api"
+	"go-clean-app-example/src/transport/cli"
+	"go-clean-app-example/src/transport/cmd"
+	"go-clean-app-example/src/transport/websocket"
 	"os"
 
-	"github.com/deadelus/go-clean-app/src/application"
+	"github.com/deadelus/go-clean-app/v2/application"
+	"github.com/deadelus/go-clean-app/v2/logger/zaplogger"
 	"github.com/spf13/pflag"
 )
 
@@ -32,21 +33,31 @@ func main() {
 	// Build application options
 	var options = []application.Option{}
 
+	// Determine logging mode based on flags
 	isCliMode := !*web && !*ws && !*interactive
+
 	if isCliMode {
 		// Use a console-friendly logger for CLI mode
-		options = append(options, application.SetZapLoggerForCLI(), application.WithCLIMode())
-	} else {
-		// Use a web-friendly logger for web or websocket mode
-		options = append(options, application.SetZapLogger())
+		options = append(options, application.WithCLIMode())
 	}
 
+	options = append(options, application.AppName("CLEAN APP TEST"))
+	options = append(options, application.Version("0.1.0-local"))
+	options = append(options, application.Debug(true))
+
 	// Create the engine with the appropriate options
-	engine, err := application.New(
-		application.AppNameEnvName,
-		application.SetVersionFromEnv(),
-		options...,
-	)
+	engine, err := application.New(options...)
+
+	if err != nil {
+		fmt.Println("Error creating application:", err)
+		return
+	}
+
+	if isCliMode {
+		// Set up zap logger for CLI mode
+		zaplogger.SetZapLoggerForCLI()(engine)
+	}
+
 	if err != nil {
 		fmt.Println("Error creating application:", err)
 		return
@@ -63,6 +74,7 @@ func main() {
 	// Initialize storage based on the environment
 	var storage storage.Storage
 	storage, err = mysql.NewMySQLStorage(&mysql.DB{}, engine.Logger())
+
 	if err != nil {
 		engine.Logger().Error("Failed to create mysql storage fallback dynamo", err)
 		storage, err = dynamo.NewDynamoStorage()
@@ -73,6 +85,7 @@ func main() {
 	}
 
 	useCases, err := uc.NewUseCase(engine.Logger(), storage)
+
 	if err != nil {
 		engine.Logger().Error("Failed to create use cases", err)
 		return
@@ -93,6 +106,9 @@ func main() {
 	default:
 		startCLIMode(engine, useCases)
 	}
+
+	// Wait for graceful shutdown to complete
+	<-engine.Gracefull().Done()
 }
 
 func determinePort(flagPort, defaultPort int) int {
@@ -125,6 +141,13 @@ func startWebServer(engine *application.Engine, useCases uc.UseCases, port int) 
 	})
 
 	server := api.NewServer(useCases, engine.Logger(), port)
+
+	engine.Gracefull().Register("web", func() error {
+		fmt.Println("Stopping web server...")
+		err := server.Stop()
+		return err
+	})
+
 	if err := server.Start(); err != nil {
 		engine.Logger().Error("Web server failed", map[string]interface{}{
 			"error": err.Error(),
@@ -140,6 +163,13 @@ func startWebsocketServer(engine *application.Engine, useCases uc.UseCases, port
 	})
 
 	server := websocket.NewServer(useCases, engine.Logger(), port)
+
+	engine.Gracefull().Register("websocket", func() error {
+		fmt.Println("Stopping websocket server...")
+		err := server.Stop()
+		return err
+	})
+
 	if err := server.Start(); err != nil {
 		engine.Logger().Error("WebSocket server failed", map[string]interface{}{
 			"error": err.Error(),

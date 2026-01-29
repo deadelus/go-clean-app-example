@@ -5,7 +5,7 @@
 package mock
 
 import (
-	models "go-clean-app-project/src/domain/models"
+	models "go-clean-app-example/src/domain/models"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"

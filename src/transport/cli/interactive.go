@@ -2,10 +2,10 @@
 package cli
 
 import (
-	"go-clean-app-project/src/domain/uc"
-	"go-clean-app-project/src/transport"
+	"go-clean-app-example/src/domain/uc"
+	"go-clean-app-example/src/transport"
 
-	"github.com/deadelus/go-clean-app/src/logger"
+	"github.com/deadelus/go-clean-app/v2/logger"
 )
 
 type SurveyController struct {

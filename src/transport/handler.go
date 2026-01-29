@@ -1,9 +1,9 @@
 package transport
 
 import (
-	"go-clean-app-project/src/domain/uc"
+	"go-clean-app-example/src/domain/uc"
 
-	"github.com/deadelus/go-clean-app/src/logger"
+	"github.com/deadelus/go-clean-app/v2/logger"
 )
 
 // BaseHandler handler générique réutilisable

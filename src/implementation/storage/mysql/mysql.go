@@ -2,11 +2,11 @@ package mysql
 
 import (
 	"fmt"
-	"go-clean-app-project/src/domain/models"
+	"go-clean-app-example/src/domain/models"
 	"math/rand"
 	"time"
 
-	"github.com/deadelus/go-clean-app/src/logger"
+	"github.com/deadelus/go-clean-app/v2/logger"
 )
 
 type DB struct {

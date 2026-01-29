@@ -1,10 +1,10 @@
 package mysql
 
 import (
-	"go-clean-app-project/src/domain/models"
+	"go-clean-app-example/src/domain/models"
 	"testing"
 
-	"github.com/deadelus/go-clean-app/src/logger"
+	"github.com/deadelus/go-clean-app/v2/logger"
 	"github.com/golang/mock/gomock"
 )
 

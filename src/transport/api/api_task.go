@@ -1,8 +1,8 @@
 package api
 
 import (
-	"go-clean-app-project/src/domain/dto"
-	"go-clean-app-project/src/transport"
+	"go-clean-app-example/src/domain/dto"
+	"go-clean-app-example/src/transport"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

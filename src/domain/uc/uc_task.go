@@ -2,8 +2,8 @@ package uc
 
 import (
 	"context"
-	"go-clean-app-project/src/domain/dto"
-	"go-clean-app-project/src/domain/models"
+	"go-clean-app-example/src/domain/dto"
+	"go-clean-app-example/src/domain/models"
 )
 
 func (uc *UseCase) CreateTask(ctx context.Context, taskRequest dto.TaskRequest) (dto.Result[dto.TaskResponse], error) {

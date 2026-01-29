@@ -22,7 +22,7 @@ func (s *Server) setupRoutes() {
 func (s *Server) healthCheck(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"status":  "ok",
-		"service": "go-clean-app-project",
+		"service": "go-clean-app-example",
 		"version": "1.0.0",
 	})
 }

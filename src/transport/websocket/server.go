@@ -1,11 +1,13 @@
 package websocket
 
 import (
+	"context"
 	"fmt"
-	"go-clean-app-project/src/domain/uc"
+	"go-clean-app-example/src/domain/uc"
 	"net/http"
+	"time"
 
-	"github.com/deadelus/go-clean-app/src/logger"
+	"github.com/deadelus/go-clean-app/v2/logger"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 )
@@ -18,10 +20,11 @@ var upgrader = websocket.Upgrader{
 
 // Server représente le serveur WebSocket
 type Server struct {
-	useCases uc.UseCases
-	logger   logger.Logger
-	port     int
-	router   *gin.Engine
+	useCases   uc.UseCases
+	logger     logger.Logger
+	port       int
+	router     *gin.Engine
+	httpServer *http.Server
 }
 
 // NewServer crée un nouveau serveur WebSocket
@@ -30,24 +33,39 @@ func NewServer(useCases uc.UseCases, logger logger.Logger, port int) *Server {
 	router := gin.New()
 	router.Use(gin.Recovery())
 
+	httpServer := &http.Server{
+		Addr:    fmt.Sprintf(":%d", port),
+		Handler: router,
+	}
+
 	server := &Server{
-		useCases: useCases,
-		logger:   logger,
-		port:     port,
-		router:   router,
+		useCases:   useCases,
+		logger:     logger,
+		port:       port,
+		router:     router,
+		httpServer: httpServer,
 	}
 
 	server.setupRoutes()
 	return server
 }
 
-// Start démarre le serveur WebSocket
+// Start démarre le serveur websocket
 func (s *Server) Start() error {
-	s.logger.Info("Starting WebSocket server", map[string]interface{}{
+	s.logger.Info("Starting websocket server", map[string]interface{}{
 		"port": s.port,
 	})
+	return s.httpServer.ListenAndServe()
+}
 
-	return s.router.Run(fmt.Sprintf(":%d", s.port))
+// Stop arrête le serveur web
+func (s *Server) Stop() error {
+	s.logger.Info("Stopping websocket server", map[string]interface{}{
+		"port": s.port,
+	})
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	return s.httpServer.Shutdown(ctx)
 }
 
 // setupRoutes configure les routes WebSocket
@@ -60,7 +78,7 @@ func (s *Server) setupRoutes() {
 func (s *Server) healthCheck(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"status":  "ok",
-		"service": "go-clean-app-project-ws",
+		"service": "go-clean-app-example-ws",
 		"version": "1.0.0",
 	})
 }

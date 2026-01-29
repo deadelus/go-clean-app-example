@@ -2,7 +2,7 @@
 package storage
 
 import (
-	"go-clean-app-project/src/domain/models"
+	"go-clean-app-example/src/domain/models"
 )
 
 //go:generate mockgen -source=storage.go -destination=mock/mock_storage.go -package=mock

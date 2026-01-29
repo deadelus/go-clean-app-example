@@ -2,14 +2,14 @@
 
 [![Go Version](https://img.shields.io/badge/Go-1.24+-00ADD8?logo=go)](https://golang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)](https://github.com/deadelus/go-clean-app)
+[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)](https://github.com/deadelus/go-clean-app/v2)
 [![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)](#)
 
-**GitHub Repo : [https://github.com/deadelus/go-clean-app](https://github.com/deadelus/go-clean-app)**
+**GitHub Repo : [https://github.com/deadelus/go-clean-app/v2](https://github.com/deadelus/go-clean-app/v2)**
 
 **Clean Architecture Go application template with multi-transport support (CLI, API, WebSocket)**
 
-go-clean-app est un squelette d’application Go orienté Clean Architecture, prêt pour la production, avec gestion CLI, API REST et WebSocket.
+go-clean-app-example est un squelette d’application Go orienté Clean Architecture, prêt pour la production, avec gestion CLI, API REST et WebSocket.
 
 ## 🚀 **Quick Start**
 
@@ -19,8 +19,8 @@ go-clean-app est un squelette d’application Go orienté Clean Architecture, pr
 ### Installation
 ```bash
 # Clone repository
-git clone https://github.com/your-org/go-clean-app-project.git
-cd go-clean-app-project
+git clone https://github.com/your-org/go-clean-app-example.git
+cd go-clean-app-example
 
 # Install Go dependencies
 go mod tidy
@@ -113,7 +113,7 @@ This app follows Clean Architecture principles with transport-agnostic design:
 ## 📖 **Project Structure**
 
 ```
-go-clean-app-project/
+go-clean-app-example/
 ├── .env                          # Environment variables
 ├── .gitignore                    # Git ignore file
 ├── go.mod                        # Go module dependencies

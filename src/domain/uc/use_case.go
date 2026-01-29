@@ -3,11 +3,11 @@ package uc
 
 import (
 	"context"
-	"go-clean-app-project/src/domain/dto"
-	"go-clean-app-project/src/domain/errors"
-	"go-clean-app-project/src/infrastructure/storage"
+	"go-clean-app-example/src/domain/dto"
+	"go-clean-app-example/src/domain/errors"
+	"go-clean-app-example/src/infrastructure/storage"
 
-	"github.com/deadelus/go-clean-app/src/logger"
+	"github.com/deadelus/go-clean-app/v2/logger"
 )
 
 // UseCases defines the interface for the use cases in the application.
